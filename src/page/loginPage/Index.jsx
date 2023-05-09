@@ -1,4 +1,5 @@
 import { Box, useTheme, Typography, useMediaQuery } from "@mui/material";
+import Form from "./Form";
 
 const LoginPage = () => {
   const theme = useTheme();
@@ -23,13 +24,10 @@ const LoginPage = () => {
         borderRadius="1.5rem"
         backgroundColor={theme.palette.background.alt}
       >
-        <Typography
-        fontWeight="500"
-        variant="h5"
-        sx={{mb: "1.5rem"}}
-        >
-            Welcome to Login Page
+        <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
+          Welcome to the Memories
         </Typography>
+        <Form />
       </Box>
     </Box>
   );
