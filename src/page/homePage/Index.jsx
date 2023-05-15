@@ -1,9 +1,30 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import Navbar from "page/navbar/Index";
+import UserWidget from "page/widgets/UserWidget";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
-    return <Box>
-        <Navbar />
+  const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
+  const { _id, picturePath } = useSelector((state) => state.user);
+//   console.log(picturePath)
+  return (
+    <Box>
+      <Navbar />
+      <Box
+        width="100%"
+        padding="2rem 6%"
+        display={isNonMobileScreen ? "flex" : "block"}
+        gap="0.5rem"
+        justifyContent="space-between"
+      >
+        <Box flexBasis={isNonMobileScreen ? "26%" : undefined}>
+          <UserWidget userId={_id} picturePath={picturePath} />
+        </Box>
+        <Box flexBasis={isNonMobileScreen ? "42%" : undefined}>
+        </Box>
+        {isNonMobileScreen && <Box flexBasis="26%"></Box>}
+      </Box>
     </Box>
-}
+  );
+};
 export default HomePage;
