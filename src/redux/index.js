@@ -25,8 +25,15 @@ export const authSlice = createSlice({
     setStories: (state, action) => {
       state.stories = action.payload.stories;
     },
+    setStory: (state, action) => {
+      const updatedStories = state.stories.map((story) => {
+        if (story._id === action.payload.story._id) return action.payload.story;
+        return story;
+      });
+      state.stories = updatedStories;
+    }
   },
 });
 
-export const { setMode, setStories, setLogin, setLogout } = authSlice.actions;
+export const { setMode, setStories, setLogin, setLogout, setStory } = authSlice.actions;
 export default authSlice.reducer;
