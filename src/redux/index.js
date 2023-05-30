@@ -5,6 +5,8 @@ const initialState = {
   user: null,
   token: null,
   stories: [],
+  trendingStories: [],
+  userStories: []
 };
 
 export const authSlice = createSlice({
@@ -31,9 +33,15 @@ export const authSlice = createSlice({
         return story;
       });
       state.stories = updatedStories;
-    }
+    },
+    setTrendingStories: (state, action) => {
+      state.trendingStories = action.payload.trendingStories;
+    },
+    setUserStories: (state, action) => {
+      state.userStories = action.payload.userStories;
+    },
   },
 });
 
-export const { setMode, setStories, setLogin, setLogout, setStory } = authSlice.actions;
+export const { setMode, setStories, setLogin, setLogout, setStory, setTrendingStories, setUserStories } = authSlice.actions;
 export default authSlice.reducer;

@@ -84,9 +84,15 @@ const Navbar = () => {
               <LightMode sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <Home sx={{ fontSize: "25px" }} />
-          <TrendingUp sx={{ fontSize: "25px" }} />
-          <PostAdd sx={{ fontSize: "25px" }} />
+          <Home onClick={() => navigate("/home")} sx={{ fontSize: "25px" }} />
+          <TrendingUp
+            onClick={() => navigate("/story/trending")}
+            sx={{ fontSize: "25px" }}
+          />
+          <PostAdd
+            onClick={() => navigate(`/story/user/${user._id}`)}
+            sx={{ fontSize: "25px" }}
+          />
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
@@ -108,7 +114,14 @@ const Navbar = () => {
               <MenuItem value={fullName}>
                 <Typography>{fullName}</Typography>
               </MenuItem>
-              <MenuItem onClick={() => dispatch(setLogout())}>Logout</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  dispatch(setLogout());
+                  navigate("/");
+                }}
+              >
+                Logout
+              </MenuItem>
             </Select>
           </FormControl>
         </FlexBetween>
@@ -156,9 +169,15 @@ const Navbar = () => {
                 <LightMode sx={{ fontSize: "25px" }} />
               )}
             </IconButton>
-            <Home sx={{ fontSize: "25px" }} />
-            <TrendingUp sx={{ fontSize: "25px" }} />
-            <PostAdd sx={{ fontSize: "25px" }} />
+            <Home onClick={() => navigate("/home")} sx={{ fontSize: "25px" }} />
+            <TrendingUp
+              onClick={() => navigate("/story/trending")}
+              sx={{ fontSize: "25px" }}
+            />
+            <PostAdd
+              onClick={() => navigate(`/story/user/${user._id}`)}
+              sx={{ fontSize: "25px" }}
+            />
             <FormControl variant="standard" value={fullName}>
               <Select
                 value={fullName}
@@ -180,7 +199,12 @@ const Navbar = () => {
                 <MenuItem value={fullName}>
                   <Typography>{fullName}</Typography>
                 </MenuItem>
-                <MenuItem onClick={() => dispatch(setLogout())}>
+                <MenuItem
+                  onClick={() => {
+                    dispatch(setLogout());
+                    navigate("/");
+                  }}
+                >
                   Logout
                 </MenuItem>
               </Select>

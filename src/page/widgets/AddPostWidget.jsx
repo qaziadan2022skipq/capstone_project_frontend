@@ -52,8 +52,8 @@ const AddPostWidget = ({ picturePath }) => {
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
-    const posts = await response.json();
-    dispatch(setStories({ posts }));
+    const stories = await response.json();
+    dispatch(setStories({ stories }));
     setImage(null);
     setStoryDescriptionDescription("");
   };

@@ -8,6 +8,8 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material";
 import { themeSettings } from "theme";
 import Navbar from "page/navbar/Index";
+import TrendingStories from "page/trendingStories/Index";
+import UserStories from "page/userStories/Index";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -30,6 +32,8 @@ function App() {
               element={isAuth ? <ProfilePage /> : <Navigate to={"/"} />}
             ></Route>
             <Route path="/nav" element={<Navbar />} />
+            <Route path="/story/trending" element={<TrendingStories />} />
+            <Route path="/story/user/:userId" element={<UserStories />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

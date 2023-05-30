@@ -114,8 +114,13 @@ const Form = () => {
         resetForm,
       }) => (
         <form onSubmit={handleSubmit}>
+          {isLogin ? (
+            <Typography fontWeight="semi-bold" fontSize="22px" color="primary" mb="8px">Login</Typography>
+          ):(
+            <Typography fontWeight="semi-bold" fontSize="22px" color="primary" mb="8px">Register</Typography>
+          )}
           <Box
-            display="gird"
+            display="grid"
             gap="30px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{

@@ -51,6 +51,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
           media,
           upVotes,
           downVotes,
+          isPublic,
         }) => (
           <StoryWidget
             key={_id}
@@ -62,6 +63,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
             media={media}
             upVotes={upVotes}
             downVotes={downVotes}
+            isPublic={isPublic}
           />
         )
       )}

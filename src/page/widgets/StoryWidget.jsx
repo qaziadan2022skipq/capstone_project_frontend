@@ -20,6 +20,7 @@ const StoryWidget = ({
   media,
   upVotes,
   downVotes,
+  isPublic
 }) => {
 //   const [isComment, setIsComment] = useState(false);
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const StoryWidget = ({
   };
   return (
     <WidgetWrapper m="2rem 0">
-      <StoryProfile friendId={userId} name={name} userPicturePath={userPicturePath} />
+      <StoryProfile storyId={storyId} friendId={userId} name={name} userPicturePath={userPicturePath} isPublic={isPublic} />
       <Divider sx={{ mt: "0.75rem" }} />
       <Typography color={main} sx={{ mt: "1rem" }}>
         {storyDescription}

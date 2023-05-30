@@ -1,16 +1,42 @@
 import { Box, Typography, useTheme } from "@mui/material";
-// import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
 
-const StoryProfile = ({ friendId, name, userPicturePath }) => {
+const StoryProfile = ({
+  storyId,
+  friendId,
+  name,
+  userPicturePath,
+  isPublic,
+}) => {
   const navigate = useNavigate();
   const { palette } = useTheme();
+  const { _id } = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
   const primaryLight = palette.primary.light;
   const main = palette.neutral.main;
-  
+
+  const MakePrivate = async () => {
+    await fetch(`http://localhost:3001/story/private/${storyId}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
+
+  const MakePublic = async () => {
+    await fetch(`http://localhost:3001/story/public/${storyId}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
+
   return (
     <FlexBetween>
       <FlexBetween gap="1rem">
@@ -35,6 +61,11 @@ const StoryProfile = ({ friendId, name, userPicturePath }) => {
           </Typography>
         </Box>
       </FlexBetween>
+      {_id === friendId && (
+        <FlexBetween>
+          {isPublic ? <Box onClick={() => MakePrivate()}>Make Private</Box> : <Box onClick={() => MakePublic()}>Make Public</Box>}
+        </FlexBetween>
+      )}
     </FlexBetween>
   );
 };
