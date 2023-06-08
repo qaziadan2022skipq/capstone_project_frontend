@@ -42,7 +42,7 @@ const UserStories = () => {
           <UserWidget userId={_id} picturePath={picturePath} />
         </Box>
         <Box flexBasis={isNonMobileScreen ? "48%" : undefined}>
-          {userStories.story?.map(
+          {userStories?.map(
             ({
               _id,
               userId,

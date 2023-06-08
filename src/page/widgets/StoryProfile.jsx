@@ -1,9 +1,10 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import { useSelector } from "react-redux";
+import { Box, Button, Typography, useTheme } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
+import { setNewTrendingStory, setNewUserStory, setStory } from "../../redux";
 
 const StoryProfile = ({
   storyId,
@@ -18,23 +19,38 @@ const StoryProfile = ({
   const token = useSelector((state) => state.token);
   const primaryLight = palette.primary.light;
   const main = palette.neutral.main;
+  const dispatch = useDispatch();
 
   const MakePrivate = async () => {
-    await fetch(`http://localhost:3001/story/private/${storyId}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `http://localhost:3001/story/private/${storyId}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const updatedStory = response.json();
+    dispatch(setStory({ story: updatedStory }));
+    dispatch(setNewTrendingStory({ story: updatedStory }));
+    dispatch(setNewUserStory({ story: updatedStory }));
   };
 
   const MakePublic = async () => {
-    await fetch(`http://localhost:3001/story/public/${storyId}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `http://localhost:3001/story/public/${storyId}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const updatedStory = response.json();
+    dispatch(setStory({ story: updatedStory }));
+    dispatch(setNewTrendingStory({ story: updatedStory }));
+    dispatch(setNewUserStory({ story: updatedStory }));
   };
 
   return (
@@ -63,7 +79,29 @@ const StoryProfile = ({
       </FlexBetween>
       {_id === friendId && (
         <FlexBetween>
-          {isPublic ? <Box onClick={() => MakePrivate()}>Make Private</Box> : <Box onClick={() => MakePublic()}>Make Public</Box>}
+          {isPublic ? (
+            <Button
+              sx={{
+                color: palette.background.alt,
+                backgroundColor: palette.primary.main,
+                borderRadius: "3rem",
+              }}
+              onClick={() => MakePrivate()}
+            >
+              Make Private
+            </Button>
+          ) : (
+            <Button
+              sx={{
+                color: palette.background.alt,
+                backgroundColor: palette.primary.main,
+                borderRadius: "1rem",
+              }}
+              onClick={() => MakePublic()}
+            >
+              Make Public
+            </Button>
+          )}
         </FlexBetween>
       )}
     </FlexBetween>

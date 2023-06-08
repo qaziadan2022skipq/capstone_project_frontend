@@ -40,7 +40,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
   console.log(stories);
   return (
     <>
-      {stories.stories?.map(
+      {stories?.map(
         ({
           _id,
           userId,

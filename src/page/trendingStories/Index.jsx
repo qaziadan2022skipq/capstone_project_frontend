@@ -21,7 +21,8 @@ const TrendingStories = () => {
       },
     });
     const data = await response.json();
-    dispatch(setTrendingStories({ trendingStories: data }));
+    console.log(data)
+    dispatch(setTrendingStories({trendingStories:data}));
   };
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const TrendingStories = () => {
           <UserWidget userId={_id} picturePath={picturePath} />
         </Box>
         <Box flexBasis={isNonMobileScreen ? "48%" : undefined}>
-          {trendingStories.trendingStories?.map(
+          {trendingStories?.map(
             ({
               _id,
               userId,

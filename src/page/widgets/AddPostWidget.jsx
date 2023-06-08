@@ -53,7 +53,7 @@ const AddPostWidget = ({ picturePath }) => {
       body: formData,
     });
     const stories = await response.json();
-    dispatch(setStories({ stories }));
+    dispatch(setStories({ stories: stories }));
     setImage(null);
     setStoryDescriptionDescription("");
   };
@@ -152,9 +152,9 @@ const AddPostWidget = ({ picturePath }) => {
               </FormControl>
             </FlexBetween>
 
-            <FlexBetween gap="0.25rem">
+            {/* <FlexBetween gap="0.25rem">
             <FormControlLabel control={<Checkbox defaultChecked />} label="Private" />
-            </FlexBetween>
+            </FlexBetween> */}
           </>
         ) : (
           <FlexBetween gap="0.25rem">

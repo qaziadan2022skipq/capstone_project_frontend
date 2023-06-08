@@ -6,7 +6,7 @@ const initialState = {
   token: null,
   stories: [],
   trendingStories: [],
-  userStories: []
+  userStories: [],
 };
 
 export const authSlice = createSlice({
@@ -40,8 +40,33 @@ export const authSlice = createSlice({
     setUserStories: (state, action) => {
       state.userStories = action.payload.userStories;
     },
+    setNewTrendingStory: (state, action) => {
+      const updatedStories = state.trendingStories.map((story) => {
+        if (story._id === action.payload.story._id) return action.payload.story;
+        return story;
+      });
+      state.trendingStories = updatedStories;
+    },
+    setNewUserStory: (state, action) => {
+      const updatedStories = state.userStories.map((story) => {
+        if (story._id === action.payload.story._id) return action.payload.story;
+        return story;
+      });
+      state.userStories = updatedStories;
+    },
+    
   },
 });
 
-export const { setMode, setStories, setLogin, setLogout, setStory, setTrendingStories, setUserStories } = authSlice.actions;
+export const {
+  setMode,
+  setStories,
+  setLogin,
+  setLogout,
+  setStory,
+  setTrendingStories,
+  setUserStories,
+  setNewTrendingStory,
+  setNewUserStory,
+} = authSlice.actions;
 export default authSlice.reducer;
