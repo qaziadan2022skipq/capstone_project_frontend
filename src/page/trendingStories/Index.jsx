@@ -3,8 +3,9 @@ import Navbar from "page/navbar/Index";
 import UserWidget from "page/widgets/UserWidget";
 import { useDispatch, useSelector } from "react-redux";
 import { setTrendingStories } from "../../redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import StoryWidget from "page/widgets/StoryWidget";
+import AppPagination from "page/widgets/AppPagination";
 
 const TrendingStories = () => {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
@@ -12,6 +13,7 @@ const TrendingStories = () => {
   const token = useSelector((state) => state.token);
   const trendingStories = useSelector((state) => state.trendingStories);
   const dispatch = useDispatch();
+  const [pStories, setPStories] = useState([]);
 
   const getTrendingStories = async () => {
     const response = await fetch(`http://localhost:3001/story/trending`, {
@@ -43,7 +45,7 @@ const TrendingStories = () => {
           <UserWidget userId={_id} picturePath={picturePath} />
         </Box>
         <Box flexBasis={isNonMobileScreen ? "48%" : undefined}>
-          {trendingStories?.map(
+          {pStories?.map(
             ({
               _id,
               userId,
@@ -70,6 +72,7 @@ const TrendingStories = () => {
               />
             )
           )}
+          <AppPagination stories={trendingStories} setPStories={(p) => setPStories(p)} />
         </Box>
         <Box flexBasis={isNonMobileScreen ? "26%" : undefined}>
           <UserWidget userId={_id} picturePath={picturePath} />

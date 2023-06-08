@@ -59,6 +59,7 @@ const StoryWidget = ({
     dispatch(setStory({ story: updatedStory }));
     dispatch(setNewTrendingStory({ story: updatedStory }));
     dispatch(setNewUserStory({ story: updatedStory }));
+    // window.location.reload();
   };
   const AddDownvote = async () => {
     const response = await fetch(

@@ -3,8 +3,9 @@ import Navbar from "page/navbar/Index";
 import UserWidget from "page/widgets/UserWidget";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserStories } from "../../redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import StoryWidget from "page/widgets/StoryWidget";
+import AppPagination from "page/widgets/AppPagination";
 
 const UserStories = () => {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
@@ -12,6 +13,7 @@ const UserStories = () => {
   const token = useSelector((state) => state.token);
   const userStories = useSelector((state) => state.userStories);
   const dispatch = useDispatch();
+  const [pStories, setPStories] = useState([]);
 
   const getUserStories = async () => {
     const response = await fetch(`http://localhost:3001/story/user/${_id}`, {
@@ -42,7 +44,7 @@ const UserStories = () => {
           <UserWidget userId={_id} picturePath={picturePath} />
         </Box>
         <Box flexBasis={isNonMobileScreen ? "48%" : undefined}>
-          {userStories?.map(
+          {pStories?.map(
             ({
               _id,
               userId,
@@ -69,6 +71,7 @@ const UserStories = () => {
               />
             )
           )}
+          <AppPagination stories={userStories} setPStories={(p) => setPStories(p)} />
         </Box>
         <Box flexBasis={isNonMobileScreen ? "26%" : undefined}>
           <UserWidget userId={_id} picturePath={picturePath} />

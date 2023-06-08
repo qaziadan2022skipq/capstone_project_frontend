@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setStories } from "../../redux";
 import StoryWidget from "./StoryWidget";
+import AppPagination from "./AppPagination";
 
 const StoriesWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const stories = useSelector((state) => state.stories);
   const token = useSelector((state) => state.token);
+  const [pStories, setPStories] = useState([]);
 
   const getStories = async () => {
     const response = await fetch("http://localhost:3001/story", {
@@ -40,7 +42,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
   console.log(stories);
   return (
     <>
-      {stories?.map(
+      {pStories?.map(
         ({
           _id,
           userId,
@@ -67,7 +69,9 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
           />
         )
       )}
+      <AppPagination stories={stories} setPStories={(p) => setPStories(p)} />
     </>
+    
   );
 };
 
