@@ -3,7 +3,7 @@ import Navbar from "page/navbar/Index";
 import UserWidget from "page/widgets/UserWidget";
 import { useDispatch, useSelector } from "react-redux";
 import { setTrendingStories } from "../../redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import StoryWidget from "page/widgets/StoryWidget";
 import AppPagination from "page/widgets/AppPagination";
 
@@ -13,7 +13,7 @@ const TrendingStories = () => {
   const token = useSelector((state) => state.token);
   const trendingStories = useSelector((state) => state.trendingStories);
   const dispatch = useDispatch();
-  const [pStories, setPStories] = useState([]);
+  const pStories = useSelector((state) => state.pStories);
 
   const getTrendingStories = async () => {
     const response = await fetch(`http://localhost:3001/story/trending`, {
@@ -23,14 +23,14 @@ const TrendingStories = () => {
       },
     });
     const data = await response.json();
-    console.log(data)
-    dispatch(setTrendingStories({trendingStories:data}));
+    console.log(data);
+    dispatch(setTrendingStories({ trendingStories: data }));
   };
 
   useEffect(() => {
     getTrendingStories();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(trendingStories)
+  console.log(trendingStories);
   return (
     <Box>
       <Navbar />
@@ -72,7 +72,7 @@ const TrendingStories = () => {
               />
             )
           )}
-          <AppPagination stories={trendingStories} setPStories={(p) => setPStories(p)} />
+          <AppPagination stories={trendingStories} />
         </Box>
         <Box flexBasis={isNonMobileScreen ? "26%" : undefined}>
           <UserWidget userId={_id} picturePath={picturePath} />

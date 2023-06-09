@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setStories } from "../../redux";
 import StoryWidget from "./StoryWidget";
@@ -8,7 +8,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const stories = useSelector((state) => state.stories);
   const token = useSelector((state) => state.token);
-  const [pStories, setPStories] = useState([]);
+  const pStories = useSelector((state) => state.pStories)
 
   const getStories = async () => {
     const response = await fetch("http://localhost:3001/story", {
@@ -17,6 +17,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
     });
     const data = await response.json();
     dispatch(setStories({ stories: data }));
+
   };
 
   // User Stories
@@ -39,7 +40,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
       getStories();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(stories);
+  console.log(typeof(pStories));
   return (
     <>
       {pStories?.map(
@@ -69,7 +70,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
           />
         )
       )}
-      <AppPagination stories={stories} setPStories={(p) => setPStories(p)} />
+      <AppPagination stories={stories} />
     </>
     
   );

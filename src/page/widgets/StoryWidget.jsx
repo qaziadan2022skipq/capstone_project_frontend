@@ -8,7 +8,7 @@ import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setNewTrendingStory, setNewUserStory, setStory } from "../../redux";
+import { setNewPStory, setNewTrendingStory, setNewUserStory, setStory } from "../../redux";
 import StoryProfile from "./StoryProfile";
 import { useState } from "react";
 
@@ -59,7 +59,8 @@ const StoryWidget = ({
     dispatch(setStory({ story: updatedStory }));
     dispatch(setNewTrendingStory({ story: updatedStory }));
     dispatch(setNewUserStory({ story: updatedStory }));
-    // window.location.reload();
+    dispatch(setNewPStory({story: updatedStory}))
+    
   };
   const AddDownvote = async () => {
     const response = await fetch(
@@ -82,6 +83,7 @@ const StoryWidget = ({
     dispatch(setStory({ story: updatedStory }));
     dispatch(setNewTrendingStory({ story: updatedStory }));
     dispatch(setNewUserStory({ story: updatedStory }));
+    dispatch(setNewPStory({story: updatedStory}))
   };
   return (
     <WidgetWrapper m="2rem 0">

@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setPStories } from "../../redux";
 
 const { Box, Pagination } = require("@mui/material");
 
 const pageSize = 2;
-const AppPagination = ({stories, setPStories}) => {
+const AppPagination = ({ stories }) => {
+  const dispatch = useDispatch();
   const [pagination, setPagination] = useState({
     count: 0,
     from: 0,
@@ -27,7 +30,7 @@ const AppPagination = ({stories, setPStories}) => {
       .getData({ from: pagination.from, to: pagination.to })
       .then((response) => {
         setPagination({ ...pagination, count: response.count });
-        setPStories(response.data)
+        dispatch(setPStories({pStories: response.data}))
       });
   }, [pagination.from, pagination.to]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -35,7 +38,7 @@ const AppPagination = ({stories, setPStories}) => {
     const from = (page - 1) * pageSize;
     const to = (page - 1) * pageSize + pageSize;
 
-    setPagination({...pagination, from: from, to: to})
+    setPagination({ ...pagination, from: from, to: to });
   };
 
   return (

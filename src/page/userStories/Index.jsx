@@ -3,7 +3,7 @@ import Navbar from "page/navbar/Index";
 import UserWidget from "page/widgets/UserWidget";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserStories } from "../../redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import StoryWidget from "page/widgets/StoryWidget";
 import AppPagination from "page/widgets/AppPagination";
 
@@ -13,7 +13,7 @@ const UserStories = () => {
   const token = useSelector((state) => state.token);
   const userStories = useSelector((state) => state.userStories);
   const dispatch = useDispatch();
-  const [pStories, setPStories] = useState([]);
+  const pStories = useSelector((state) => state.pStories);
 
   const getUserStories = async () => {
     const response = await fetch(`http://localhost:3001/story/user/${_id}`, {
@@ -29,7 +29,7 @@ const UserStories = () => {
   useEffect(() => {
     getUserStories();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(userStories)
+  console.log(userStories);
   return (
     <Box>
       <Navbar />
@@ -71,7 +71,7 @@ const UserStories = () => {
               />
             )
           )}
-          <AppPagination stories={userStories} setPStories={(p) => setPStories(p)} />
+          <AppPagination stories={userStories} />
         </Box>
         <Box flexBasis={isNonMobileScreen ? "26%" : undefined}>
           <UserWidget userId={_id} picturePath={picturePath} />

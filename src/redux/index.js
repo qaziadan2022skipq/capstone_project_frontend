@@ -7,6 +7,7 @@ const initialState = {
   stories: [],
   trendingStories: [],
   userStories: [],
+  pStories: [],
 };
 
 export const authSlice = createSlice({
@@ -54,7 +55,16 @@ export const authSlice = createSlice({
       });
       state.userStories = updatedStories;
     },
-    
+    setPStories: (state, action) => {
+      state.pStories = action.payload.pStories
+    },
+    setNewPStory: (state, action) => {
+      const updatedStories = state.pStories.map((story) => {
+        if (story._id === action.payload.story._id) return action.payload.story;
+        return story;
+      });
+      state.pStories = updatedStories;
+    },
   },
 });
 
@@ -68,5 +78,7 @@ export const {
   setUserStories,
   setNewTrendingStory,
   setNewUserStory,
+  setPStories,
+  setNewPStory
 } = authSlice.actions;
 export default authSlice.reducer;
