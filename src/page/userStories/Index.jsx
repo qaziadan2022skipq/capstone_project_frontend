@@ -48,6 +48,7 @@ const UserStories = () => {
             ({
               _id,
               userId,
+              fontStyle,
               firstName,
               lastName,
               userPicturePath,
@@ -64,6 +65,7 @@ const UserStories = () => {
                 name={`${firstName} ${lastName}`}
                 userPicturePath={userPicturePath}
                 storyDescription={storyDescription}
+                fontStyle={fontStyle}
                 media={media}
                 upVotes={upVotes}
                 downVotes={downVotes}

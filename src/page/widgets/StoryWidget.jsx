@@ -16,6 +16,7 @@ const StoryWidget = ({
   storyId,
   userId,
   name,
+  fontStyle,
   userPicturePath,
   storyDescription,
   media,
@@ -95,7 +96,7 @@ const StoryWidget = ({
         isPublic={isPublic}
       />
       <Divider sx={{ mt: "0.75rem" }} />
-      <Typography color={main} sx={{ mt: "1rem" }}>
+      <Typography color={main} sx={{ mt: "1rem" }} fontFamily={fontStyle}>
         {storyDescription}
       </Typography>
       {media && (

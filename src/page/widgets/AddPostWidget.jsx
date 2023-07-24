@@ -13,10 +13,8 @@ import {
   Button,
   IconButton,
   useMediaQuery,
-  FormControlLabel,
   NativeSelect,
   FormControl,
-  Checkbox
 } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import Dropzone from "react-dropzone";
@@ -31,6 +29,7 @@ const AddPostWidget = ({ picturePath }) => {
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
   const [storyDescription, setStoryDescriptionDescription] = useState("");
+  const [fontStyle, setFontStyle] = useState("");
   const { palette } = useTheme();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
@@ -42,11 +41,14 @@ const AddPostWidget = ({ picturePath }) => {
     const formData = new FormData();
     formData.append("userId", _id);
     formData.append("storyDescription", storyDescription);
+    formData.append("fontStyle", fontStyle)
     if (image) {
       formData.append("media", image);
       formData.append("mediaPath", image.name);
     }
-
+    for (const value of formData.values()) {
+      console.log(value);
+    }
     const response = await fetch(`http://localhost:3001/story`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
@@ -56,7 +58,13 @@ const AddPostWidget = ({ picturePath }) => {
     dispatch(setStories({ stories: stories }));
     setImage(null);
     setStoryDescriptionDescription("");
+    setFontStyle("");
   };
+
+  const handleSelect = (e) => {
+    console.log("Target value" + e.target.value);
+    setFontStyle(e.target.value)
+  }
 
   return (
     <WidgetWrapper>
@@ -135,19 +143,24 @@ const AddPostWidget = ({ picturePath }) => {
         {isNonMobileScreens ? (
           <>
             <FlexBetween gap="0.25rem">
-              <FormControl fullWidth >
+              <Typography
+                color={mediumMain}
+                sx={{ "&:hover": { cursor: "pointer", color: medium }, mr: "15px" }}
+              >Font_Style:
+              </Typography>
+              <FormControl fullWidth>
                 <NativeSelect
-                  defaultValue={10}
+                value={fontStyle} 
                   inputProps={{
-                    name: "age",
+                    name: "fontStyle",
                     id: "uncontrolled-native",
                   }}
+                  onChange={handleSelect}
                 >
-                  <option value={10}>Font Style</option>
-                  <option value={20}>Twenty</option>
-                  <option value={30}>Thirty</option>
-                  <option value={20}>Twenty</option>
-                  <option value={30}>Thirty</option>
+                  <option value={"Nunito Sans"}>Nunito Sans</option>
+                  <option value={"Open Sans"}>Open Sans</option>
+                  <option value={"Noto Sans"}>Noto Sans</option>
+                  <option value={"Roboto"}>Roboto</option>
                 </NativeSelect>
               </FormControl>
             </FlexBetween>

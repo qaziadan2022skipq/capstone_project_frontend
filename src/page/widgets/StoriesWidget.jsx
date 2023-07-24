@@ -47,6 +47,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
         ({
           _id,
           userId,
+          fontStyle,
           firstName,
           lastName,
           userPicturePath,
@@ -60,6 +61,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
             key={_id}
             storyId={_id}
             userId={userId}
+            fontStyle={fontStyle}
             name={`${firstName} ${lastName}`}
             userPicturePath={userPicturePath}
             storyDescription={storyDescription}
